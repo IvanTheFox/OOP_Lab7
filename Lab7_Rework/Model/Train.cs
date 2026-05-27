@@ -40,18 +40,10 @@
             { TrainType.Freight, "Грузовой" },
         };
 
-        /// <summary>
-        /// Возвращает название типа поезда
-        /// </summary>
-        /// <param name="value">Тип поезда</param>
-        /// <returns>Название типа поезда</returns>
+        /// <summary>Возвращает название типа поезда</summary>
         public static string GetTrainTypeName(TrainType value) => s_TrainTypesNames[value];
 
-        /// <summary>
-        /// Возвращает тип поезда по его названию
-        /// </summary>
-        /// <param name="name">Название типа поезда</param>
-        /// <returns>Тип поезда</returns>
+        /// <summary>Возвращает тип поезда по его названию</summary>
         public static TrainType? GetTrainTypeEnum(string name)
         {
             foreach (var trainType in s_TrainTypesNames)
@@ -61,10 +53,32 @@
         }
 
         public int Id { get; set; }
-        public string Number { get; set; }
-        public string Destination { get; set; }
+
+        public string Number
+        {
+            get;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Номер поезда не может быть пустым");
+                field = value;
+            }
+        }
+
+        public string Destination
+        {
+            get;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Назначение не может быть пустым");
+                field = value;
+            }
+        }
+
         public Time Departure { get; set; }
         public TrainType Type { get; set; }
+
         public int Seats
         {
             get;
@@ -75,13 +89,16 @@
                 field = value;
             }
         }
+
         public int FreeSeats
         {
             get;
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Количество свободных мест не может быть отрицательным");
                 if (value > Seats)
-                    throw new ArgumentException("Количество свободных мест не может превышать количество мест.");
+                    throw new ArgumentException("Количество свободных мест не может превышать количество мест");
                 field = value;
             }
         }
@@ -108,14 +125,10 @@
             FreeSeats = otherTrain.FreeSeats;
         }
 
-        /// <summary>
-        /// Создаёт поезд со случайными данными
-        /// </summary>
-        /// <param name="id">Идентификатор поезда</param>
-        /// <returns>Случайный поезд</returns>
+        /// <summary>Создаёт поезд со случайными данными</summary>
         public static Train RandomTrain(int id)
         {
-            string number = string.Format("{0:D3}", _random.Next(0, 1000).ToString()) + CHARS[_random.Next(0, CHARS.Length)]; ;
+            string number = string.Format("{0:D3}", _random.Next(0, 1000).ToString()) + CHARS[_random.Next(0, CHARS.Length)];
             string destination = s_CityBank[_random.Next(0, s_CityBank.Count)];
             Time departure = new(_random.Next(0, 24), _random.Next(0, 60));
             TrainType type = (TrainType)_random.Next(1, s_TrainTypesNames.Count + 1);

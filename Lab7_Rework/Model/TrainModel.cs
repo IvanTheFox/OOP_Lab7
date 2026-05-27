@@ -31,17 +31,19 @@
 
         public int AddTrain(Train train)
         {
-            int i = 0;
-            while (i < _trains.Count - 1 && _trains[i].Id == _trains[i + 1].Id - 1)
-                i++;
-            if (_trains[i].Id == _trains[i + 1].Id - 1)
-                i++;
-            train.Id = _trains[i].Id + 1;
-            _trains.Insert(i, train);
+            // Находим минимальный свободный ID
+            var usedIds = new HashSet<int>(_trains.Select(t => t.Id));
+            int newId = 0;
+            while (usedIds.Contains(newId))
+                newId++;
+
+            train.Id = newId;
+            _trains.Add(train);
             TrainAdded?.Invoke(new(train));
 
             return train.Id;
         }
+
         public bool RemoveById(int id)
         {
             foreach (Train train in _trains)
@@ -55,6 +57,7 @@
             }
             return false;
         }
+
         public bool ModifyTrain(Train train)
         {
             for (int i = 0; i < _trains.Count; i++)
