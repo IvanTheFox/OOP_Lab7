@@ -9,6 +9,7 @@ namespace Lab7_Rework
     {
         private readonly TrainController _controller;
         private readonly TrainModel _model;
+        private readonly List<Train> _trains;
 
         public TrainFrom()
         {
@@ -21,75 +22,87 @@ namespace Lab7_Rework
             if (cmbTrainType.Items.Count > 0)
                 cmbTrainType.SelectedIndex = 0;
 
-            _model.TrainAdded += _ => RefreshGrid();
-            _model.TrainRemoved += _ => RefreshGrid();
-            _model.TrainModified += _ => RefreshGrid();
+            _model.TrainAdded += OnTrainAdded;
+            _model.TrainRemoved += OnTrainRemoved;
+            _model.TrainModified += OnTrainModified;
 
             _controller = TrainController.Instance;
-            _controller.AttachView(this);
-            _controller.LoadAll();
+            _controller.GetAll();
         }
 
-        private void RefreshGrid()
+        public void OnTrainAdded(Train train)
         {
-            var list = new BindingList<Train>(new List<Train>(_model.GetAll()));
-            dataGridView1.DataSource = list;
-        }
-
-        // ── IView ────────────────────────────────────────────────────────────
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string InputNumber
-        {
-            get => textBox1.Text;
-            set => textBox1.Text = value;
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string InputDestination
-        {
-            get => textBox2.Text;
-            set => textBox2.Text = value;
-        }
-
-        // Форма отдаёт сырую строку — парсинг времени делает контроллер
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string InputDepartureTime
-        {
-            get => textBox3.Text;
-            set => textBox3.Text = value;
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Train.TrainType InputTrainType
-        {
-            get => Train.GetTrainTypeEnum(cmbTrainType.Text) ?? Train.TrainType.Passanger;
-            set => cmbTrainType.Text = Train.GetTrainTypeName(value);
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int InputSeatsTotal
-        {
-            get => (int)nudSeatsTotal.Value;
-            set => nudSeatsTotal.Value = value;
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int InputSeatsAvailable
-        {
-            get => (int)nudSeatsAvailable.Value;
-            set => nudSeatsAvailable.Value = value;
-        }
-
-        public string SearchQuery => txtSearch.Text;
-
-        public Train? SelectedTrain
-        {
-            get
+            for (int i = 0; i < _trains.Count; i++)
             {
-                if (dataGridView1.SelectedRows.Count == 0) return null;
-                return dataGridView1.SelectedRows[0].DataBoundItem as Train;
+                if (_trains[i].Id > train.Id)
+                {
+                    _trains.Insert(i,train);
+                    //dataGridView1.DataSource = _trains;
+                    return;
+                }
             }
+            _trains.Add(train);
+            //dataGridView1.DataSource = _trains;
+        }
+        public void OnTrainRemoved(Train train)
+        {
+            _trains.Remove(train);
+            //dataGridView1.DataSource = _trains;
+        }
+        public void OnTrainModified(Train train)
+        {
+            for (int i = 0; i < _trains.Count; i++)
+            {
+                if (_trains[i].Id == train.Id)
+                {
+                    _trains[i] = train;
+                    //dataGridView1.DataSource = _trains;
+                    return;
+                }
+            }
+        }
+
+        public void AddTrain(string _number, string _departure, string _time, string _type, string _seatsTotal, string _seatsAvailable) 
+        {
+            Time time;
+            try
+            {
+                time = Time.FromString(_time);
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Ошибка ввода");
+                return;
+            }
+
+            Train.TrainType? type = Train.GetTrainTypeEnum(_type);
+            if (type == null)
+            {
+                MessageBox.Show("Введённого типа поезда не существует.", "Ошибка ввода");
+                return;
+            }
+
+            if (!int.TryParse(_seatsTotal, out int seatsTotal))
+            {
+                MessageBox.Show("Введенное общее количество мест не является числом");
+            }
+            if (!int.TryParse(_seatsAvailable, out int seatsAvailable))
+            {
+                MessageBox.Show("Введенное количество доступных мест не является числом");
+            }
+            _controller.Add(_number, _departure, time, type.Value, seatsTotal, seatsAvailable);
+        }
+        public void RemoveTrain(string id)
+        {
+
+        }
+        public void ModifyTrain(string _id, string _number, string _departure, string _time, string _type, string _seatsTotal, string _seatsAvailable)
+        {
+
+        }
+        public IEnumerable<Train> SearchTrain(string query)
+        {
+
         }
 
         public void ShowMessage(string message)

@@ -114,17 +114,6 @@
             FreeSeats = freeSeats;
         }
 
-        public Train(Train otherTrain)
-        {
-            Id = otherTrain.Id;
-            Number = otherTrain.Number;
-            Destination = otherTrain.Destination;
-            Departure = new(otherTrain.Departure.Hour, otherTrain.Departure.Minute);
-            Type = otherTrain.Type;
-            Seats = otherTrain.Seats;
-            FreeSeats = otherTrain.FreeSeats;
-        }
-
         /// <summary>Создаёт поезд со случайными данными</summary>
         public static Train RandomTrain(int id)
         {

@@ -27,7 +27,7 @@
         }
 
         public IEnumerable<Train> GetAll() => _trains.AsReadOnly();
-        public Train GetById(int id) => new(_trains.First(t => t.Id == id));
+        public Train GetById(int id) => _trains.First(t => t.Id == id);
 
         public int AddTrain(Train train)
         {
@@ -39,7 +39,7 @@
 
             train.Id = newId;
             _trains.Add(train);
-            TrainAdded?.Invoke(new(train));
+            TrainAdded?.Invoke(train);
 
             return train.Id;
         }
@@ -51,7 +51,7 @@
                 if (train.Id == id)
                 {
                     _trains.Remove(train);
-                    TrainRemoved?.Invoke(new(train));
+                    TrainRemoved?.Invoke(train);
                     return true;
                 }
             }
@@ -65,11 +65,24 @@
                 if (_trains[i].Id == train.Id)
                 {
                     _trains[i] = train;
-                    TrainModified?.Invoke(new(train));
+                    TrainModified?.Invoke(train);
                     return true;
                 }
             }
             return false;
+        }
+
+        public IEnumerable<Train> Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return GetAll();
+
+            query = query.ToLower();
+            return GetAll().Where(t =>
+                t.Id.ToString() == query ||
+                t.Number.ToLower().Contains(query) ||
+                t.Destination.ToLower().Contains(query) ||
+                Train.GetTrainTypeName(t.Type).ToLower().Contains(query));
         }
     }
 }

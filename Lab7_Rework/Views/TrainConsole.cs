@@ -141,7 +141,7 @@ namespace Lab7_Rework.Views
             WriteLine("Консольное приложение \"MVC - Вокзал\"");
             PrintHelp();
 
-            _controller.LoadAll();
+            _controller.GetAll();
 
             while (true)
             {
