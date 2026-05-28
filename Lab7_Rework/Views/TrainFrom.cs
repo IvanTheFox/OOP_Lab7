@@ -5,12 +5,18 @@ using Lab7_Rework.Views;
 
 namespace Lab7_Rework
 {
+    /// <summary>
+    /// Класс-форма для работы с репозиторием поездов
+    /// </summary>
     public partial class TrainFrom : Form, IView
     {
         private readonly TrainController _controller;
         private readonly TrainModel _model;
-        private readonly List<Train> _trains = new();
+        private readonly List<Train> _trains = [];
 
+        /// <summary>
+        /// Инициализирует форму
+        /// </summary>
         public TrainFrom()
         {
             InitializeComponent();
@@ -18,9 +24,9 @@ namespace Lab7_Rework
             _model = TrainModel.Instance;
 
             foreach (var name in Train.s_TrainTypesNames.Values)
-                cmbTrainType.Items.Add(name);
-            if (cmbTrainType.Items.Count > 0)
-                cmbTrainType.SelectedIndex = 0;
+                TrainTypeInput.Items.Add(name);
+            if (TrainTypeInput.Items.Count > 0)
+                TrainTypeInput.SelectedIndex = 0;
 
             _model.TrainAdded += OnTrainAdded;
             _model.TrainRemoved += OnTrainRemoved;
@@ -28,7 +34,6 @@ namespace Lab7_Rework
 
             _controller = TrainController.Instance;
 
-            // Загрузка всех поездов в локальный список при старте
             foreach (var train in _controller.GetAll())
                 _trains.Add(train);
 
@@ -36,13 +41,14 @@ namespace Lab7_Rework
         }
 
         /// <summary>
-        /// Вспомогательный метод для перепривязки DataGridView к _trains
+        /// Вспомогательный метод для обновления таблицы поездов
         /// </summary>
-        private void RefreshGrid()
-        {
-            dataGridView1.DataSource = new BindingList<Train>(_trains);
-        }
+        private void RefreshGrid() => TrainTable.DataSource = new BindingList<Train>(_trains);
 
+        /// <summary>
+        /// Обрабатывает событие добавления поезда в репозиторий
+        /// </summary>
+        /// <param name="train">Добавленный поезд</param>
         public void OnTrainAdded(Train train)
         {
             for (int i = 0; i < _trains.Count; i++)
@@ -58,12 +64,20 @@ namespace Lab7_Rework
             RefreshGrid();
         }
 
+        /// <summary>
+        /// Обрабатывает событие удаления поезда из репозитория
+        /// </summary>
+        /// <param name="train">Удалённый поезд</param>
         public void OnTrainRemoved(Train train)
         {
             _trains.Remove(train);
             RefreshGrid();
         }
 
+        /// <summary>
+        /// Обрабатывает событие изменения поезда из репозитория
+        /// </summary>
+        /// <param name="train">Изменённый поезд</param>
         public void OnTrainModified(Train train)
         {
             for (int i = 0; i < _trains.Count; i++)
@@ -77,7 +91,15 @@ namespace Lab7_Rework
             }
         }
 
-
+        /// <summary>
+        /// Отправляет запрос на добваление поезда в репозиторий
+        /// </summary>
+        /// <param name="_number">Номер поезда</param>
+        /// <param name="_departure">Пункт назначения</param>
+        /// <param name="_time">Время отправления</param>
+        /// <param name="_type">Тип поезда</param>
+        /// <param name="_seatsTotal">Количество мест</param>
+        /// <param name="_seatsAvailable">Количество свободных мест</param>
         public void AddTrain(string _number, string _departure, string _time,
                              string _type, string _seatsTotal, string _seatsAvailable)
         {
@@ -122,12 +144,26 @@ namespace Lab7_Rework
             }
         }
 
+        /// <summary>
+        /// Отправляет запрос на удаление поезда из репозитория
+        /// </summary>
+        /// <param name="_id">Идентификатор поезда</param>
         public void RemoveTrain(string _id)
         {
             if (int.TryParse(_id, out int id))
                 _controller.Delete(id);
         }
 
+        /// <summary>
+        /// Отправляет запрос на изменение поезда репозитория
+        /// </summary>
+        /// <param name="_id">Идентификатор поезда</param>
+        /// <param name="_number">Номер поезда</param>
+        /// <param name="_departure">Пункт назначения</param>
+        /// <param name="_time">Время отправления</param>
+        /// <param name="_type">Тип поезда</param>
+        /// <param name="_seatsTotal">Количество мест</param>
+        /// <param name="_seatsAvailable">Количество свободных мест</param>
         public void ModifyTrain(string _id, string _number, string _departure, string _time,
                                 string _type, string _seatsTotal, string _seatsAvailable)
         {
@@ -155,8 +191,7 @@ namespace Lab7_Rework
                 return;
             }
 
-            if (!int.TryParse(_seatsTotal, out int seatsTotal) ||
-                !int.TryParse(_seatsAvailable, out int seatsAvailable))
+            if (!int.TryParse(_seatsTotal, out int seatsTotal) || !int.TryParse(_seatsAvailable, out int seatsAvailable))
             {
                 MessageBox.Show("Количество мест должно быть числом.", "Ошибка ввода");
                 return;
@@ -164,9 +199,9 @@ namespace Lab7_Rework
 
             try
             {
-            Train modified = new Train(id, _number, _departure, time, type.Value, seatsTotal, seatsAvailable);
-            _model.ModifyTrain(modified);
-            ShowMessage($"Поезд #{id} изменён.");
+                Train modified = new Train(id, _number, _departure, time, type.Value, seatsTotal, seatsAvailable);
+                _model.ModifyTrain(modified);
+                ShowMessage($"Поезд #{id} изменён.");
             }
             catch (ArgumentException e)
             {
@@ -174,65 +209,97 @@ namespace Lab7_Rework
             }
         }
 
-        public IEnumerable<Train> SearchTrain(string query)
-        {
-            return _controller.Search(query);
-        }
+        /// <summary>
+        /// Отправляет запрос на поиск поездов, соответствующих запросу
+        /// </summary>
+        /// <param name="query">Запрос</param>
+        /// <returns>Список поездов</returns>
+        public IEnumerable<Train> SearchTrain(string query) => _controller.Search(query);
 
+        /// <summary>
+        /// Отображает сообщение на форме
+        /// </summary>
+        /// <param name="message">Сообщение</param>
         public void ShowMessage(string message)
         {
             if (message.StartsWith("Ошибка"))
                 MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
-                lblStatus.Text = message;
+                StatusLabel.Text = message;
         }
 
+        /// <summary>
+        /// Очищает поля ввода на форме
+        /// </summary>
         public void ClearForm()
         {
-            tbTrainNumber.Clear();
-            tbDestination.Clear();
-            tbTime.Clear();
-            nudSeatsTotal.Value = nudSeatsTotal.Minimum;
-            nudSeatsAvailable.Value = nudSeatsAvailable.Minimum;
-            tbSearch.Clear();
+            TrainNumberInput.Clear();
+            TrainDestinationInput.Clear();
+            TrainDepartureInput.Clear();
+            TrainSeatsInput.Value = TrainSeatsInput.Minimum;
+            TrainFreeSeatsInput.Value = TrainFreeSeatsInput.Minimum;
+            SearchQueryInput.Clear();
         }
 
+        /// <summary>
+        /// Выводит результаты поиска поездов по запросу
+        /// </summary>
+        /// <param name="trains">Список поездов</param>
         public void ShowSearchResults(IEnumerable<Train> trains)
         {
-            dataGridView1.DataSource = new BindingList<Train>(new List<Train>(trains));
+            TrainTable.DataSource = new BindingList<Train>([.. trains]);
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Обрабатывает нажатие на кнопку добавить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddTrainButton_Click(object sender, EventArgs e)
         {
             AddTrain(
-                tbTrainNumber.Text,
-                tbDestination.Text,
-                tbTime.Text,
-                cmbTrainType.SelectedItem?.ToString() ?? string.Empty,
-                nudSeatsTotal.Value.ToString(),
-                nudSeatsAvailable.Value.ToString()
+                TrainNumberInput.Text,
+                TrainDestinationInput.Text,
+                TrainDepartureInput.Text,
+                TrainTypeInput.SelectedItem?.ToString() ?? string.Empty,
+                TrainSeatsInput.Value.ToString(),
+                TrainFreeSeatsInput.Value.ToString()
             );
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Обрабатывает нажатие на кнопку удалить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteTrainButton_Click(object sender, EventArgs e)
         {
-            // Выбранная строка из DataGridView
-            if (dataGridView1.CurrentRow?.DataBoundItem is Train selected)
+            if (TrainTable.CurrentRow?.DataBoundItem is Train selected)
                 RemoveTrain(selected.Id.ToString());
             else
                 ShowMessage("Ошибка: выберите поезд для удаления.");
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Обрабатывает нажатие на кнопку поиска
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchTrainButton_Click(object sender, EventArgs e)
         {
-            var results = SearchTrain(tbSearch.Text);
+            var results = SearchTrain(SearchQueryInput.Text);
             ShowSearchResults(results);
             ShowMessage($"Найдено: {results.Count()} поездов.");
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Обрабатывает нажатие на кнопку изменить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ModifyTrainButton_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow?.DataBoundItem is not Train selected)
+            if (TrainTable.CurrentRow?.DataBoundItem is not Train selected)
             {
                 ShowMessage("Ошибка: выберите поезд для изменения.");
                 return;
@@ -240,26 +307,31 @@ namespace Lab7_Rework
 
             ModifyTrain(
                 selected.Id.ToString(),
-                tbTrainNumber.Text,
-                tbDestination.Text,
-                tbTime.Text,
-                cmbTrainType.SelectedItem?.ToString() ?? string.Empty,
-                nudSeatsTotal.Value.ToString(),
-                nudSeatsAvailable.Value.ToString()
+                TrainNumberInput.Text,
+                TrainDestinationInput.Text,
+                TrainDepartureInput.Text,
+                TrainTypeInput.SelectedItem?.ToString() ?? string.Empty,
+                TrainSeatsInput.Value.ToString(),
+                TrainFreeSeatsInput.Value.ToString()
             );
         }
 
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Обрабатывает изменение выделения в таблице поездов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TrainTable_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow?.DataBoundItem is not Train selected)
+            if (TrainTable.CurrentRow?.DataBoundItem is not Train selected)
                 return;
 
-            tbTrainNumber.Text = selected.Number;
-            tbDestination.Text = selected.Destination;
-            tbTime.Text = selected.Departure.ToString();
-            cmbTrainType.SelectedItem = Train.GetTrainTypeName(selected.Type);
-            nudSeatsTotal.Value = selected.TotalSeats;
-            nudSeatsAvailable.Value = selected.SeatsAvailable;
+            TrainNumberInput.Text = selected.Number;
+            TrainDestinationInput.Text = selected.Destination;
+            TrainDepartureInput.Text = selected.Departure.ToString();
+            TrainTypeInput.SelectedItem = Train.GetTrainTypeName(selected.Type);
+            TrainSeatsInput.Value = selected.TotalSeats;
+            TrainFreeSeatsInput.Value = selected.SeatsAvailable;
         }
     }
 }

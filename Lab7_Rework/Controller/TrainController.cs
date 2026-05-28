@@ -1,9 +1,8 @@
 ﻿using Lab7_Rework.Model;
-using Lab7_Rework.Views;
 
 namespace Lab7_Rework.Controller
 {
-    internal class TrainController
+    internal class TrainController()
     {
         public static TrainController Instance
         {
@@ -15,41 +14,51 @@ namespace Lab7_Rework.Controller
             private set;
         }
 
-        private readonly TrainModel _model;
-
-        private TrainController()
-        {
-            _model = TrainModel.Instance;
-        }
+        private readonly TrainModel _model = TrainModel.Instance;
 
 
-        /// <summary>Загрузить все поезда — инициирует начальное отображение</summary>
-        public IEnumerable<Train> GetAll()
-        {
-            return _model.GetAll();
-        }
+        /// <summary>
+        /// Возвращает список всех поездов
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Train> GetAll() => _model.GetAll();
 
-        /// <summary>Добавить новый поезд из данных представления</summary>
+        /// <summary>
+        /// Возвращает поезд с заданным идентификатором (если такой существует)
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Поезд</returns>
+        public Train? GetById(int id) => _model.GetById(id);
+
+        /// <summary>
+        /// Добавляет новый поезд в репозиторий
+        /// </summary>
+        /// <param name="number">Номер поезда</param>
+        /// <param name="departure">Пункт назначения</param>
+        /// <param name="time">Время отправления</param>
+        /// <param name="type">Тип поезда</param>
+        /// <param name="seatsTotal">Количество мест</param>
+        /// <param name="seatsAvailable">Количество свободных мест</param>
+        /// <exception cref="ArgumentException">Исключение при некорректных данных</exception>
         public void Add(string number, string departure, Time time, Train.TrainType type, int seatsTotal, int seatsAvailable)
         {
             if (seatsAvailable > seatsTotal)
                 throw new ArgumentException("Свободных мест не может быть больше общего количества мест");
 
-            Train train = new Train(0, number, departure, time, type, seatsTotal, seatsAvailable);
-            _model.AddTrain(train);
+            _model.AddTrain(new Train(0, number, departure, time, type, seatsTotal, seatsAvailable));
         }
 
-        /// <summary>Удалить выбранный поезд</summary>
-        public void Delete(int id)
-        {
-            _model.RemoveById(id);
-        }
+        /// <summary>
+        /// Удаляет поезд с заданным идентификатором
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        public void Delete(int id) => _model.RemoveById(id);
 
-        /// <summary>Поиск по таблице</summary>
-        public IEnumerable<Train> Search(string query)
-        {
-            return _model.Search(query);
-        }
-
+        /// <summary>
+        /// Возвращает поезда, соответствующие заданному запросу
+        /// </summary>
+        /// <param name="query">Запрос</param>
+        /// <returns>Список поездов</returns>
+        public IEnumerable<Train> Search(string query) => _model.Search(query);
     }
 }

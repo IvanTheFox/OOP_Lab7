@@ -23,23 +23,23 @@
             label6 = new Label();
             label7 = new Label();
             lblTitle = new Label();
-            lblStatus = new Label();
-            tbTrainNumber = new TextBox();
-            tbDestination = new TextBox();
-            tbTime = new TextBox();
-            cmbTrainType = new ComboBox();
-            nudSeatsTotal = new NumericUpDown();
-            nudSeatsAvailable = new NumericUpDown();
-            tbSearch = new TextBox();
-            dataGridView1 = new DataGridView();
-            btnAdd = new Button();
-            btnDelete = new Button();
-            btnSearch = new Button();
+            StatusLabel = new Label();
+            TrainNumberInput = new TextBox();
+            TrainDestinationInput = new TextBox();
+            TrainDepartureInput = new TextBox();
+            TrainTypeInput = new ComboBox();
+            TrainSeatsInput = new NumericUpDown();
+            TrainFreeSeatsInput = new NumericUpDown();
+            SearchQueryInput = new TextBox();
+            TrainTable = new DataGridView();
+            AddTrainButton = new Button();
+            DeleteTrainButton = new Button();
+            SearchTrainButton = new Button();
             panel1 = new Panel();
-            btnEdit = new Button();
-            ((System.ComponentModel.ISupportInitialize)nudSeatsTotal).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudSeatsAvailable).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ModifyTrainButton = new Button();
+            ((System.ComponentModel.ISupportInitialize)TrainSeatsInput).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TrainFreeSeatsInput).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TrainTable).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -116,144 +116,144 @@
             lblTitle.Text = "Расписание поездов";
             lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblStatus
+            // StatusLabel
             // 
-            lblStatus.ForeColor = Color.DimGray;
-            lblStatus.Location = new Point(13, 648);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(860, 22);
-            lblStatus.TabIndex = 3;
-            lblStatus.Text = "Готово.";
+            StatusLabel.ForeColor = Color.DimGray;
+            StatusLabel.Location = new Point(13, 648);
+            StatusLabel.Name = "StatusLabel";
+            StatusLabel.Size = new Size(860, 22);
+            StatusLabel.TabIndex = 3;
+            StatusLabel.Text = "Готово.";
             // 
-            // tbTrainNumber
+            // TrainNumberInput
             // 
-            tbTrainNumber.Location = new Point(212, 9);
-            tbTrainNumber.Name = "tbTrainNumber";
-            tbTrainNumber.Size = new Size(225, 26);
-            tbTrainNumber.TabIndex = 5;
+            TrainNumberInput.Location = new Point(212, 9);
+            TrainNumberInput.Name = "TrainNumberInput";
+            TrainNumberInput.Size = new Size(225, 26);
+            TrainNumberInput.TabIndex = 5;
             // 
-            // tbDestination
+            // TrainDestinationInput
             // 
-            tbDestination.Location = new Point(212, 48);
-            tbDestination.Name = "tbDestination";
-            tbDestination.Size = new Size(225, 26);
-            tbDestination.TabIndex = 6;
+            TrainDestinationInput.Location = new Point(212, 48);
+            TrainDestinationInput.Name = "TrainDestinationInput";
+            TrainDestinationInput.Size = new Size(225, 26);
+            TrainDestinationInput.TabIndex = 6;
             // 
-            // tbTime
+            // TrainDepartureInput
             // 
-            tbTime.Location = new Point(212, 92);
-            tbTime.Name = "tbTime";
-            tbTime.Size = new Size(227, 26);
-            tbTime.TabIndex = 7;
+            TrainDepartureInput.Location = new Point(212, 92);
+            TrainDepartureInput.Name = "TrainDepartureInput";
+            TrainDepartureInput.Size = new Size(227, 26);
+            TrainDepartureInput.TabIndex = 7;
             // 
-            // cmbTrainType
+            // TrainTypeInput
             // 
-            cmbTrainType.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbTrainType.Location = new Point(212, 133);
-            cmbTrainType.Name = "cmbTrainType";
-            cmbTrainType.Size = new Size(225, 28);
-            cmbTrainType.TabIndex = 8;
+            TrainTypeInput.DropDownStyle = ComboBoxStyle.DropDownList;
+            TrainTypeInput.Location = new Point(212, 133);
+            TrainTypeInput.Name = "TrainTypeInput";
+            TrainTypeInput.Size = new Size(225, 28);
+            TrainTypeInput.TabIndex = 8;
             // 
-            // nudSeatsTotal
+            // TrainSeatsInput
             // 
-            nudSeatsTotal.Location = new Point(168, 175);
-            nudSeatsTotal.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
-            nudSeatsTotal.Name = "nudSeatsTotal";
-            nudSeatsTotal.Size = new Size(120, 26);
-            nudSeatsTotal.TabIndex = 9;
+            TrainSeatsInput.Location = new Point(168, 175);
+            TrainSeatsInput.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            TrainSeatsInput.Name = "TrainSeatsInput";
+            TrainSeatsInput.Size = new Size(120, 26);
+            TrainSeatsInput.TabIndex = 9;
             // 
-            // nudSeatsAvailable
+            // TrainFreeSeatsInput
             // 
-            nudSeatsAvailable.Location = new Point(168, 217);
-            nudSeatsAvailable.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
-            nudSeatsAvailable.Name = "nudSeatsAvailable";
-            nudSeatsAvailable.Size = new Size(120, 26);
-            nudSeatsAvailable.TabIndex = 10;
+            TrainFreeSeatsInput.Location = new Point(168, 217);
+            TrainFreeSeatsInput.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            TrainFreeSeatsInput.Name = "TrainFreeSeatsInput";
+            TrainFreeSeatsInput.Size = new Size(120, 26);
+            TrainFreeSeatsInput.TabIndex = 10;
             // 
-            // tbSearch
+            // SearchQueryInput
             // 
-            tbSearch.Location = new Point(511, 217);
-            tbSearch.Name = "tbSearch";
-            tbSearch.Size = new Size(225, 26);
-            tbSearch.TabIndex = 11;
+            SearchQueryInput.Location = new Point(511, 217);
+            SearchQueryInput.Name = "SearchQueryInput";
+            SearchQueryInput.Size = new Size(225, 26);
+            SearchQueryInput.TabIndex = 11;
             // 
-            // dataGridView1
+            // TrainTable
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeight = 40;
-            dataGridView1.Location = new Point(13, 45);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(860, 250);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
+            TrainTable.AllowUserToAddRows = false;
+            TrainTable.AllowUserToDeleteRows = false;
+            TrainTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            TrainTable.ColumnHeadersHeight = 40;
+            TrainTable.Location = new Point(13, 45);
+            TrainTable.MultiSelect = false;
+            TrainTable.Name = "TrainTable";
+            TrainTable.ReadOnly = true;
+            TrainTable.RowHeadersWidth = 51;
+            TrainTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            TrainTable.Size = new Size(860, 250);
+            TrainTable.TabIndex = 0;
+            TrainTable.SelectionChanged += TrainTable_SelectionChanged;
             // 
-            // btnAdd
+            // AddTrainButton
             // 
-            btnAdd.Location = new Point(524, 9);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(130, 35);
-            btnAdd.TabIndex = 13;
-            btnAdd.Text = "Добавить";
-            btnAdd.Click += btnAdd_Click;
+            AddTrainButton.Location = new Point(524, 9);
+            AddTrainButton.Name = "AddTrainButton";
+            AddTrainButton.Size = new Size(130, 35);
+            AddTrainButton.TabIndex = 13;
+            AddTrainButton.Text = "Добавить";
+            AddTrainButton.Click += AddTrainButton_Click;
             // 
-            // btnDelete
+            // DeleteTrainButton
             // 
-            btnDelete.Location = new Point(524, 126);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(171, 35);
-            btnDelete.TabIndex = 15;
-            btnDelete.Text = "Удалить выбранный";
-            btnDelete.Click += btnDelete_Click;
+            DeleteTrainButton.Location = new Point(524, 126);
+            DeleteTrainButton.Name = "DeleteTrainButton";
+            DeleteTrainButton.Size = new Size(171, 35);
+            DeleteTrainButton.TabIndex = 15;
+            DeleteTrainButton.Text = "Удалить выбранный";
+            DeleteTrainButton.Click += DeleteTrainButton_Click;
             // 
-            // btnSearch
+            // SearchTrainButton
             // 
-            btnSearch.Location = new Point(750, 217);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(100, 30);
-            btnSearch.TabIndex = 12;
-            btnSearch.Text = "Найти";
-            btnSearch.Click += btnSearch_Click;
+            SearchTrainButton.Location = new Point(750, 217);
+            SearchTrainButton.Name = "SearchTrainButton";
+            SearchTrainButton.Size = new Size(100, 30);
+            SearchTrainButton.TabIndex = 12;
+            SearchTrainButton.Text = "Найти";
+            SearchTrainButton.Click += SearchTrainButton_Click;
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnEdit);
+            panel1.Controls.Add(ModifyTrainButton);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(tbTrainNumber);
+            panel1.Controls.Add(TrainNumberInput);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(tbDestination);
+            panel1.Controls.Add(TrainDestinationInput);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(tbTime);
+            panel1.Controls.Add(TrainDepartureInput);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(cmbTrainType);
+            panel1.Controls.Add(TrainTypeInput);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(nudSeatsTotal);
+            panel1.Controls.Add(TrainSeatsInput);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(nudSeatsAvailable);
+            panel1.Controls.Add(TrainFreeSeatsInput);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(tbSearch);
-            panel1.Controls.Add(btnSearch);
-            panel1.Controls.Add(btnAdd);
-            panel1.Controls.Add(btnDelete);
+            panel1.Controls.Add(SearchQueryInput);
+            panel1.Controls.Add(SearchTrainButton);
+            panel1.Controls.Add(AddTrainButton);
+            panel1.Controls.Add(DeleteTrainButton);
             panel1.Location = new Point(13, 308);
             panel1.Name = "panel1";
             panel1.Size = new Size(860, 259);
             panel1.TabIndex = 2;
             // 
-            // btnEdit
+            // ModifyTrainButton
             // 
-            btnEdit.Location = new Point(524, 71);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(171, 33);
-            btnEdit.TabIndex = 17;
-            btnEdit.Text = "Изменить выбранный";
-            btnEdit.UseVisualStyleBackColor = true;
-            btnEdit.Click += btnEdit_Click;
+            ModifyTrainButton.Location = new Point(524, 71);
+            ModifyTrainButton.Name = "ModifyTrainButton";
+            ModifyTrainButton.Size = new Size(171, 33);
+            ModifyTrainButton.TabIndex = 17;
+            ModifyTrainButton.Text = "Изменить выбранный";
+            ModifyTrainButton.UseVisualStyleBackColor = true;
+            ModifyTrainButton.Click += ModifyTrainButton_Click;
             // 
             // TrainFrom
             // 
@@ -261,16 +261,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(901, 598);
             Controls.Add(lblTitle);
-            Controls.Add(dataGridView1);
+            Controls.Add(TrainTable);
             Controls.Add(panel1);
-            Controls.Add(lblStatus);
+            Controls.Add(StatusLabel);
             Font = new Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Margin = new Padding(4);
             Name = "TrainFrom";
             Text = "Вокзал — MVC";
-            ((System.ComponentModel.ISupportInitialize)nudSeatsTotal).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudSeatsAvailable).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TrainSeatsInput).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TrainFreeSeatsInput).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TrainTable).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -286,19 +286,19 @@
         private Label label6;
         private Label label7;
         private Label lblTitle;
-        private Label lblStatus;
-        private TextBox tbTrainNumber;
-        private TextBox tbDestination;
-        private TextBox tbTime;
-        private ComboBox cmbTrainType;
-        private NumericUpDown nudSeatsTotal;
-        private NumericUpDown nudSeatsAvailable;
-        private TextBox tbSearch;
-        private DataGridView dataGridView1;
-        private Button btnAdd;
-        private Button btnDelete;
-        private Button btnSearch;
+        private Label StatusLabel;
+        private TextBox TrainNumberInput;
+        private TextBox TrainDestinationInput;
+        private TextBox TrainDepartureInput;
+        private ComboBox TrainTypeInput;
+        private NumericUpDown TrainSeatsInput;
+        private NumericUpDown TrainFreeSeatsInput;
+        private TextBox SearchQueryInput;
+        private DataGridView TrainTable;
+        private Button AddTrainButton;
+        private Button DeleteTrainButton;
+        private Button SearchTrainButton;
         private Panel panel1;
-        private Button btnEdit;
+        private Button ModifyTrainButton;
     }
 }

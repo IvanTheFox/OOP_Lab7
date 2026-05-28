@@ -2,6 +2,9 @@
 
 namespace Lab7_Rework.Model
 {
+    /// <summary>
+    /// Класс, представляющий поезд
+    /// </summary>
     public class Train
     {
         public const string CHARS = "ABCDEFGHIJKLMNOPQRSTVWXYZ";
@@ -26,6 +29,9 @@ namespace Lab7_Rework.Model
 
         private static readonly Random _random = new();
 
+        /// <summary>
+        /// Типы поездов
+        /// </summary>
         public enum TrainType
         {
             Passanger = 1,
@@ -42,10 +48,18 @@ namespace Lab7_Rework.Model
             { TrainType.Freight, "Грузовой" },
         };
 
-        /// <summary>Возвращает название типа поезда</summary>
+        /// <summary>
+        /// Возвращает название типа поезда
+        /// </summary>
+        /// <param name="value">Тип поезда</param>
+        /// <returns>Название</returns>
         public static string GetTrainTypeName(TrainType value) => s_TrainTypesNames[value];
 
-        /// <summary>Возвращает тип поезда по его названию</summary>
+        /// <summary>
+        /// Возвращает тип поезда по его названию
+        /// </summary>
+        /// <param name="name">Название типа поезда</param>
+        /// <returns>Тип поезда</returns>
         public static TrainType? GetTrainTypeEnum(string name)
         {
             foreach (var trainType in s_TrainTypesNames)
@@ -87,7 +101,7 @@ namespace Lab7_Rework.Model
         [Browsable(false)]
         public TrainType Type { get; set; }
 
-        [DisplayName("Тип")]  // отображение в таблице вместо Type
+        [DisplayName("Тип")]
         public string TypeName => GetTrainTypeName(Type);
 
         [DisplayName("Мест всего")]
@@ -127,7 +141,11 @@ namespace Lab7_Rework.Model
             SeatsAvailable = seatsAvailable;
         }
 
-        /// <summary>Создаёт поезд со случайными данными</summary>
+        /// <summary>
+        /// Создаёт случайный поезд
+        /// </summary>
+        /// <param name="id">Идентификатор случайного поезда</param>
+        /// <returns>Случайный поезд</returns>
         public static Train RandomTrain(int id)
         {
             string number = string.Format("{0:D3}", _random.Next(0, 1000).ToString()) + CHARS[_random.Next(0, CHARS.Length)];
@@ -139,5 +157,11 @@ namespace Lab7_Rework.Model
 
             return new Train(id, number, destination, departure, type, seats, freeSeats);
         }
+
+        /// <summary>
+        /// Конвертирует поезд в строковый формат
+        /// </summary>
+        /// <returns>Строковый формат поезда</returns>
+        public override string ToString() => $"#{Id} {Number} -> {Destination} | {Departure} | {GetTrainTypeName(Type)} | мест: {TotalSeats}, своб.: {SeatsAvailable}";
     }
 }
