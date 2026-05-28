@@ -10,7 +10,7 @@ namespace Lab7_Rework.Views
         IEnumerable<Train> SearchTrain(string query);
 
         void OnTrainAdded(Train train);
-        void OnTrainRemoved(int id);
+        void OnTrainRemoved(Train train);
         void OnTrainModified(Train train);
     }
 }

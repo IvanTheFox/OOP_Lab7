@@ -30,14 +30,12 @@ namespace Lab7_Rework.Controller
         }
 
         /// <summary>Добавить новый поезд из данных представления</summary>
-        public void Add(int id, string number, string departure, Time time, Train.TrainType type, int seatsTotal, int seatsAvailable)
+        public void Add(string number, string departure, Time time, Train.TrainType type, int seatsTotal, int seatsAvailable)
         {
-            // Проверка переданных параметров
             if (seatsAvailable > seatsTotal)
-            {
                 throw new ArgumentException("Свободных мест не может быть больше общего количества мест");
-            }
-            Train train = new Train(id, number, departure, time, type, seatsTotal, seatsAvailable);
+
+            Train train = new Train(0, number, departure, time, type, seatsTotal, seatsAvailable);
             _model.AddTrain(train);
         }
 
