@@ -24,19 +24,20 @@
             label7 = new Label();
             lblTitle = new Label();
             lblStatus = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            tbTrainNumber = new TextBox();
+            tbDestination = new TextBox();
+            tbTime = new TextBox();
             cmbTrainType = new ComboBox();
             nudSeatsTotal = new NumericUpDown();
             nudSeatsAvailable = new NumericUpDown();
-            txtSearch = new TextBox();
+            tbSearch = new TextBox();
             dataGridView1 = new DataGridView();
             btnAdd = new Button();
             btnDelete = new Button();
             btnClear = new Button();
             btnSearch = new Button();
             panel1 = new Panel();
+            btnEdit = new Button();
             ((System.ComponentModel.ISupportInitialize)nudSeatsTotal).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSeatsAvailable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -48,7 +49,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(16, 12);
             label1.Name = "label1";
-            label1.Size = new Size(65, 24);
+            label1.Size = new Size(55, 20);
             label1.TabIndex = 0;
             label1.Text = "Номер:";
             // 
@@ -57,7 +58,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(13, 51);
             label2.Name = "label2";
-            label2.Size = new Size(107, 24);
+            label2.Size = new Size(86, 20);
             label2.TabIndex = 6;
             label2.Text = "Назначение:";
             // 
@@ -66,7 +67,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(13, 95);
             label3.Name = "label3";
-            label3.Size = new Size(168, 24);
+            label3.Size = new Size(137, 20);
             label3.TabIndex = 7;
             label3.Text = "Время отправления:";
             // 
@@ -75,7 +76,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(16, 136);
             label4.Name = "label4";
-            label4.Size = new Size(43, 24);
+            label4.Size = new Size(34, 20);
             label4.TabIndex = 8;
             label4.Text = "Тип:";
             // 
@@ -84,7 +85,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(16, 178);
             label5.Name = "label5";
-            label5.Size = new Size(101, 24);
+            label5.Size = new Size(83, 20);
             label5.TabIndex = 9;
             label5.Text = "Мест всего:";
             // 
@@ -93,7 +94,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(16, 220);
             label6.Name = "label6";
-            label6.Size = new Size(132, 24);
+            label6.Size = new Size(109, 20);
             label6.TabIndex = 10;
             label6.Text = "Мест свободно:";
             // 
@@ -102,7 +103,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(439, 279);
             label7.Name = "label7";
-            label7.Size = new Size(60, 24);
+            label7.Size = new Size(50, 20);
             label7.TabIndex = 11;
             label7.Text = "Поиск:";
             // 
@@ -125,33 +126,33 @@
             lblStatus.TabIndex = 3;
             lblStatus.Text = "Готово.";
             // 
-            // textBox1
+            // tbTrainNumber
             // 
-            textBox1.Location = new Point(212, 9);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(225, 30);
-            textBox1.TabIndex = 5;
+            tbTrainNumber.Location = new Point(212, 9);
+            tbTrainNumber.Name = "tbTrainNumber";
+            tbTrainNumber.Size = new Size(225, 26);
+            tbTrainNumber.TabIndex = 5;
             // 
-            // textBox2
+            // tbDestination
             // 
-            textBox2.Location = new Point(212, 48);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(225, 30);
-            textBox2.TabIndex = 6;
+            tbDestination.Location = new Point(212, 48);
+            tbDestination.Name = "tbDestination";
+            tbDestination.Size = new Size(225, 26);
+            tbDestination.TabIndex = 6;
             // 
-            // textBox3
+            // tbTime
             // 
-            textBox3.Location = new Point(212, 92);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(227, 30);
-            textBox3.TabIndex = 7;
+            tbTime.Location = new Point(212, 92);
+            tbTime.Name = "tbTime";
+            tbTime.Size = new Size(227, 26);
+            tbTime.TabIndex = 7;
             // 
             // cmbTrainType
             // 
             cmbTrainType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTrainType.Location = new Point(212, 133);
             cmbTrainType.Name = "cmbTrainType";
-            cmbTrainType.Size = new Size(225, 32);
+            cmbTrainType.Size = new Size(225, 28);
             cmbTrainType.TabIndex = 8;
             // 
             // nudSeatsTotal
@@ -159,7 +160,7 @@
             nudSeatsTotal.Location = new Point(168, 175);
             nudSeatsTotal.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
             nudSeatsTotal.Name = "nudSeatsTotal";
-            nudSeatsTotal.Size = new Size(120, 30);
+            nudSeatsTotal.Size = new Size(120, 26);
             nudSeatsTotal.TabIndex = 9;
             // 
             // nudSeatsAvailable
@@ -167,15 +168,15 @@
             nudSeatsAvailable.Location = new Point(168, 217);
             nudSeatsAvailable.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
             nudSeatsAvailable.Name = "nudSeatsAvailable";
-            nudSeatsAvailable.Size = new Size(120, 30);
+            nudSeatsAvailable.Size = new Size(120, 26);
             nudSeatsAvailable.TabIndex = 10;
             // 
-            // txtSearch
+            // tbSearch
             // 
-            txtSearch.Location = new Point(518, 273);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(225, 30);
-            txtSearch.TabIndex = 11;
+            tbSearch.Location = new Point(518, 273);
+            tbSearch.Name = "tbSearch";
+            tbSearch.Size = new Size(225, 26);
+            tbSearch.TabIndex = 11;
             // 
             // dataGridView1
             // 
@@ -191,10 +192,11 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(860, 250);
             dataGridView1.TabIndex = 0;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(550, 12);
+            btnAdd.Location = new Point(524, 9);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(130, 35);
             btnAdd.TabIndex = 13;
@@ -203,11 +205,11 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(550, 71);
+            btnDelete.Location = new Point(524, 126);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(130, 35);
+            btnDelete.Size = new Size(171, 35);
             btnDelete.TabIndex = 15;
-            btnDelete.Text = "Удалить";
+            btnDelete.Text = "Удалить выбранный";
             btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
@@ -230,12 +232,13 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnEdit);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(tbTrainNumber);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(tbDestination);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(textBox3);
+            panel1.Controls.Add(tbTime);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(cmbTrainType);
             panel1.Controls.Add(label5);
@@ -243,7 +246,7 @@
             panel1.Controls.Add(label6);
             panel1.Controls.Add(nudSeatsAvailable);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(txtSearch);
+            panel1.Controls.Add(tbSearch);
             panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(btnAdd);
             panel1.Controls.Add(btnDelete);
@@ -253,11 +256,21 @@
             panel1.Size = new Size(860, 330);
             panel1.TabIndex = 2;
             // 
+            // btnEdit
+            // 
+            btnEdit.Location = new Point(524, 71);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(171, 33);
+            btnEdit.TabIndex = 17;
+            btnEdit.Text = "Изменить выбранный";
+            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
+            // 
             // TrainFrom
             // 
-            AutoScaleDimensions = new SizeF(10F, 24F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(900, 683);
+            ClientSize = new Size(931, 683);
             Controls.Add(lblTitle);
             Controls.Add(dataGridView1);
             Controls.Add(panel1);
@@ -285,18 +298,19 @@
         private Label label7;
         private Label lblTitle;
         private Label lblStatus;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox tbTrainNumber;
+        private TextBox tbDestination;
+        private TextBox tbTime;
         private ComboBox cmbTrainType;
         private NumericUpDown nudSeatsTotal;
         private NumericUpDown nudSeatsAvailable;
-        private TextBox txtSearch;
+        private TextBox tbSearch;
         private DataGridView dataGridView1;
         private Button btnAdd;
         private Button btnDelete;
         private Button btnClear;
         private Button btnSearch;
         private Panel panel1;
+        private Button btnEdit;
     }
 }

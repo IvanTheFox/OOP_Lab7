@@ -131,21 +131,21 @@ namespace Lab7_Rework
             }
 
             Time time;
-            try 
-            { 
-                time = Time.FromString(_time); 
+            try
+            {
+                time = Time.FromString(_time);
             }
-            catch (ArgumentException e) 
-            { 
-                MessageBox.Show(e.Message, "Ошибка ввода"); 
-                return; 
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Ошибка ввода");
+                return;
             }
 
             Train.TrainType? type = Train.GetTrainTypeEnum(_type);
-            if (type == null) 
-            { 
-                MessageBox.Show("Тип поезда не найден.", "Ошибка ввода"); 
-                return; 
+            if (type == null)
+            {
+                MessageBox.Show("Тип поезда не найден.", "Ошибка ввода");
+                return;
             }
 
             if (!int.TryParse(_seatsTotal, out int seatsTotal) ||
@@ -175,12 +175,12 @@ namespace Lab7_Rework
 
         public void ClearForm()
         {
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
+            tbTrainNumber.Clear();
+            tbDestination.Clear();
+            tbTime.Clear();
             nudSeatsTotal.Value = nudSeatsTotal.Minimum;
             nudSeatsAvailable.Value = nudSeatsAvailable.Minimum;
-            txtSearch.Clear();
+            tbSearch.Clear();
         }
 
         public void ShowSearchResults(IEnumerable<Train> trains)
@@ -191,9 +191,9 @@ namespace Lab7_Rework
         private void btnAdd_Click(object sender, EventArgs e)
         {
             AddTrain(
-                textBox1.Text,
-                textBox2.Text,
-                textBox3.Text,
+                tbTrainNumber.Text,
+                tbDestination.Text,
+                tbTime.Text,
                 cmbTrainType.SelectedItem?.ToString() ?? string.Empty,
                 nudSeatsTotal.Value.ToString(),
                 nudSeatsAvailable.Value.ToString()
@@ -211,7 +211,7 @@ namespace Lab7_Rework
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var results = SearchTrain(txtSearch.Text);
+            var results = SearchTrain(tbSearch.Text);
             ShowSearchResults(results);
             ShowMessage($"Найдено: {results.Count()} поездов.");
         }
@@ -221,6 +221,38 @@ namespace Lab7_Rework
             ClearForm();
             ShowSearchResults(_trains);
             ShowMessage("Форма очищена.");
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow?.DataBoundItem is not Train selected)
+            {
+                ShowMessage("Ошибка: выберите поезд для изменения.");
+                return;
+            }
+
+            ModifyTrain(
+                selected.Id.ToString(),
+                tbTrainNumber.Text,
+                tbDestination.Text,
+                tbTime.Text,
+                cmbTrainType.SelectedItem?.ToString() ?? string.Empty,
+                nudSeatsTotal.Value.ToString(),
+                nudSeatsAvailable.Value.ToString()
+            );
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow?.DataBoundItem is not Train selected)
+                return;
+
+            tbTrainNumber.Text = selected.Number;
+            tbDestination.Text = selected.Destination;
+            tbTime.Text = selected.Departure.ToString();
+            cmbTrainType.SelectedItem = Train.GetTrainTypeName(selected.Type);
+            nudSeatsTotal.Value = selected.Seats;
+            nudSeatsAvailable.Value = selected.FreeSeats;
         }
     }
 }
