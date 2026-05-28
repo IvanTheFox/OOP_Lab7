@@ -1,4 +1,6 @@
-﻿namespace Lab7_Rework.Model
+﻿using System.ComponentModel;
+
+namespace Lab7_Rework.Model
 {
     public class Train
     {
@@ -6,7 +8,7 @@
         public static readonly List<string> s_CityBank =
         [
             "Москва",
-            "Санкт-Питербург",
+            "Санкт-Петербург",
             "Новосибирск",
             "Екатеринбург",
             "Казань",
@@ -52,8 +54,10 @@
             return null;
         }
 
+        [DisplayName("ID")]
         public int Id { get; set; }
 
+        [DisplayName("Номер")]
         public string Number
         {
             get;
@@ -65,6 +69,7 @@
             }
         }
 
+        [DisplayName("Назначение")]
         public string Destination
         {
             get;
@@ -76,10 +81,17 @@
             }
         }
 
+        [DisplayName("Отправление")]
         public Time Departure { get; set; }
+
+        [Browsable(false)]
         public TrainType Type { get; set; }
 
-        public int Seats
+        [DisplayName("Тип")]  // отображение в таблице вместо Type
+        public string TypeName => GetTrainTypeName(Type);
+
+        [DisplayName("Мест всего")]
+        public int TotalSeats
         {
             get;
             set
@@ -90,28 +102,29 @@
             }
         }
 
-        public int FreeSeats
+        [DisplayName("Мест свободно")]
+        public int SeatsAvailable
         {
             get;
             set
             {
                 if (value < 0)
                     throw new ArgumentException("Количество свободных мест не может быть отрицательным");
-                if (value > Seats)
+                if (value > TotalSeats)
                     throw new ArgumentException("Количество свободных мест не может превышать количество мест");
                 field = value;
             }
         }
 
-        public Train(int id, string number, string destination, Time departure, TrainType type, int seats, int freeSeats)
+        public Train(int id, string number, string destination, Time departure, TrainType type, int totalSeats, int seatsAvailable)
         {
             Id = id;
             Number = number;
             Destination = destination;
             Departure = departure;
             Type = type;
-            Seats = seats;
-            FreeSeats = freeSeats;
+            this.TotalSeats = totalSeats;
+            SeatsAvailable = seatsAvailable;
         }
 
         /// <summary>Создаёт поезд со случайными данными</summary>

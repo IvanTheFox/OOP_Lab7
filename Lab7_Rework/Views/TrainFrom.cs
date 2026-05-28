@@ -258,8 +258,8 @@ namespace Lab7_Rework
             tbDestination.Text = selected.Destination;
             tbTime.Text = selected.Departure.ToString();
             cmbTrainType.SelectedItem = Train.GetTrainTypeName(selected.Type);
-            nudSeatsTotal.Value = selected.Seats;
-            nudSeatsAvailable.Value = selected.FreeSeats;
+            nudSeatsTotal.Value = selected.TotalSeats;
+            nudSeatsAvailable.Value = selected.SeatsAvailable;
         }
     }
 }

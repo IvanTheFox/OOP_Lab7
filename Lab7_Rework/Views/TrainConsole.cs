@@ -109,7 +109,7 @@ namespace Lab7_Rework.Views
             foreach (var t in list)
                 WriteLine(string.Format("  {0,-5} {1,-8} {2,-20} {3,-6} {4,-16} {5,-6} {6,-6}",
                     t.Id, t.Number, t.Destination, t.Departure,
-                    Train.GetTrainTypeName(t.Type), t.Seats, t.FreeSeats));
+                    Train.GetTrainTypeName(t.Type), t.TotalSeats, t.SeatsAvailable));
             WriteLine("");
         }
 
@@ -213,7 +213,7 @@ namespace Lab7_Rework.Views
                 WriteLine($"Выбран: #{_selectedTrain.Id} {_selectedTrain.Number} -> " +
                           $"{_selectedTrain.Destination} | {_selectedTrain.Departure} | " +
                           $"{Train.GetTrainTypeName(_selectedTrain.Type)} | " +
-                          $"мест: {_selectedTrain.Seats}, своб.: {_selectedTrain.FreeSeats}");
+                          $"мест: {_selectedTrain.TotalSeats}, своб.: {_selectedTrain.SeatsAvailable}");
                 WriteLine("Теперь доступны команды: edit, delete");
             }
             catch
@@ -267,7 +267,7 @@ namespace Lab7_Rework.Views
                 WriteLine($"Текущие данные: {_selectedTrain.Number} | " +
                           $"{_selectedTrain.Destination} | {_selectedTrain.Departure} | " +
                           $"{Train.GetTrainTypeName(_selectedTrain.Type)} | " +
-                          $"{_selectedTrain.Seats} | {_selectedTrain.FreeSeats}");
+                          $"{_selectedTrain.TotalSeats} | {_selectedTrain.SeatsAvailable}");
                 WriteLine("Использование: edit <номер> <назначение> <время> <тип> <всего> <своб.>");
                 return;
             }
