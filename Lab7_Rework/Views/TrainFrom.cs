@@ -110,9 +110,16 @@ namespace Lab7_Rework
                 return;
             }
 
-            _controller.Add(_number, _departure, time, type.Value, seatsTotal, seatsAvailable);
-            ShowMessage("Поезд добавлен.");
-            ClearForm();
+            try
+            {
+                _controller.Add(_number, _departure, time, type.Value, seatsTotal, seatsAvailable);
+                ShowMessage("Поезд добавлен.");
+                ClearForm();
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Ошибка ввода");
+            }
         }
 
         public void RemoveTrain(string _id)
@@ -155,9 +162,16 @@ namespace Lab7_Rework
                 return;
             }
 
+            try
+            {
             Train modified = new Train(id, _number, _departure, time, type.Value, seatsTotal, seatsAvailable);
             _model.ModifyTrain(modified);
             ShowMessage($"Поезд #{id} изменён.");
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Ошибка ввода");
+            }
         }
 
         public IEnumerable<Train> SearchTrain(string query)

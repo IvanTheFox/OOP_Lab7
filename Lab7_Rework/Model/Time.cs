@@ -52,6 +52,10 @@ namespace Lab7_Rework.Model
             int hours = int.Parse(parts[0]);
             int minutes = int.Parse(parts[1]);
 
+            if (hours < 0 || hours > 23)
+                throw new ArgumentException("Некорректное число часов");
+            if (minutes < 0 || minutes > 59)
+                throw new ArgumentException("Некорректное число минут");
             return new Time(hours, minutes);
         }
     }

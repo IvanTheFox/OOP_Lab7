@@ -55,7 +55,14 @@ namespace Lab7_Rework.Views
             if (!int.TryParse(seatsAvailable, out int freeSeats))
             { WriteLine("Ошибка: количество свободных мест должно быть числом."); return; }
 
-            _controller.Add(number, departure, parsedTime, parsedType.Value, seats, freeSeats);
+            try
+            {
+                _controller.Add(number, departure, parsedTime, parsedType.Value, seats, freeSeats);
+            }
+            catch (ArgumentException e)
+            {
+                WriteLine($"Ошибка: {e.Message}");
+            }
         }
 
         public void RemoveTrain(string id)
@@ -181,16 +188,16 @@ namespace Lab7_Rework.Views
         private static void PrintHelp()
         {
             WriteLine("\nКоманды:");
-            WriteLine("  list                                                                — список поездов");
-            WriteLine("  search [запрос]                                                     — поиск");
-            WriteLine("  add <номер> <назначение> <время> <тип> <всего мест> <мест свободно> - добавить поезд");
+            WriteLine("  list                                                                 — список поездов");
+            WriteLine("  search [запрос]                                                      — поиск");
+            WriteLine("  add <номер> <назначение> <время> <тип> <всего мест> <мест свободно>  - добавить поезд");
             WriteLine("    Пример: add 100А Москва 18:00 Экспресс 100 90");
-            WriteLine("  select <id>                                                         — выбрать поезд");
-            WriteLine("  edit <номер> <назначение> <время> <тип> <всего> <своб.>             - изменить выбранный поезд");
-            WriteLine("  delete                                                              — удалить выбранный поезд");
-            WriteLine("  deselect                                                            — снять выбор");
-            WriteLine("  help                                                                — список команд");
-            WriteLine("  exit                                                                — выход\n");
+            WriteLine("  select <id>                                                          — выбрать поезд");
+            WriteLine("  edit <номер> <назначение> <время> <тип> <всего мест> <мест свободно> - изменить выбранный поезд");
+            WriteLine("  delete                                                               — удалить выбранный поезд");
+            WriteLine("  deselect                                                             — снять выбор");
+            WriteLine("  help                                                                 — список команд");
+            WriteLine("  exit                                                                 — выход\n");
         }
 
         private void HandleSelect(string[] parts)
