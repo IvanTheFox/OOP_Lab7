@@ -91,8 +91,6 @@ namespace Lab7_Rework.Views
 
         public void ShowMessage(string message) => WriteLine(message);
 
-        public void ClearForm() { }
-
         public void ShowSearchResults(IEnumerable<Train> trains)
         {
             var list = trains.ToList();

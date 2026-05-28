@@ -216,13 +216,6 @@ namespace Lab7_Rework
             ShowMessage($"Найдено: {results.Count()} поездов.");
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-            ShowSearchResults(_trains);
-            ShowMessage("Форма очищена.");
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow?.DataBoundItem is not Train selected)

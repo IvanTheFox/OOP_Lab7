@@ -34,7 +34,6 @@
             dataGridView1 = new DataGridView();
             btnAdd = new Button();
             btnDelete = new Button();
-            btnClear = new Button();
             btnSearch = new Button();
             panel1 = new Panel();
             btnEdit = new Button();
@@ -101,7 +100,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(439, 279);
+            label7.Location = new Point(432, 223);
             label7.Name = "label7";
             label7.Size = new Size(50, 20);
             label7.TabIndex = 11;
@@ -173,7 +172,7 @@
             // 
             // tbSearch
             // 
-            tbSearch.Location = new Point(518, 273);
+            tbSearch.Location = new Point(511, 217);
             tbSearch.Name = "tbSearch";
             tbSearch.Size = new Size(225, 26);
             tbSearch.TabIndex = 11;
@@ -212,18 +211,9 @@
             btnDelete.Text = "Удалить выбранный";
             btnDelete.Click += btnDelete_Click;
             // 
-            // btnClear
-            // 
-            btnClear.Location = new Point(18, 273);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(270, 35);
-            btnClear.TabIndex = 16;
-            btnClear.Text = "Очистить ввод";
-            btnClear.Click += btnClear_Click;
-            // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(757, 273);
+            btnSearch.Location = new Point(750, 217);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(100, 30);
             btnSearch.TabIndex = 12;
@@ -250,10 +240,9 @@
             panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(btnAdd);
             panel1.Controls.Add(btnDelete);
-            panel1.Controls.Add(btnClear);
             panel1.Location = new Point(13, 308);
             panel1.Name = "panel1";
-            panel1.Size = new Size(860, 330);
+            panel1.Size = new Size(860, 259);
             panel1.TabIndex = 2;
             // 
             // btnEdit
@@ -270,7 +259,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(931, 683);
+            ClientSize = new Size(901, 598);
             Controls.Add(lblTitle);
             Controls.Add(dataGridView1);
             Controls.Add(panel1);
@@ -308,7 +297,6 @@
         private DataGridView dataGridView1;
         private Button btnAdd;
         private Button btnDelete;
-        private Button btnClear;
         private Button btnSearch;
         private Panel panel1;
         private Button btnEdit;
