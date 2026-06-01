@@ -8,7 +8,7 @@ namespace Lab7_Rework
     /// <summary>
     /// Класс-форма для работы с репозиторием поездов
     /// </summary>
-    public partial class TrainFrom : Form, IView
+    public partial class TrainForm : Form, IView
     {
         private readonly TrainController _controller;
         private readonly TrainModel _model;
@@ -17,7 +17,7 @@ namespace Lab7_Rework
         /// <summary>
         /// Инициализирует форму
         /// </summary>
-        public TrainFrom()
+        public TrainForm()
         {
             InitializeComponent();
 

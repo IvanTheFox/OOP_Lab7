@@ -25,7 +25,7 @@ namespace Lab7_Rework
                 console.Run();
             }
             else
-                Application.Run(new TrainFrom());
+                Application.Run(new TrainForm());
         }
     }
 }

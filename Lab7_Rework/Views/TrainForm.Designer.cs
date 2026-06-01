@@ -1,6 +1,6 @@
 ﻿namespace Lab7_Rework
 {
-    partial class TrainFrom
+    partial class TrainForm
     {
         private System.ComponentModel.IContainer components = null;
 
