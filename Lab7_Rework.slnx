@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Lab7_Rework/Lab7_Rework.csproj" />
+  <Project Path="TestProject/TestProject.csproj" Id="1c3413c5-30cb-4d3f-89ce-4fbdd06a1441" />
 </Solution>

@@ -41,8 +41,7 @@
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns></returns>
-        public Train? GetById(int id) => _trains.First(t => t.Id == id);
-
+        public Train? GetById(int id) => _trains.FirstOrDefault(t => t.Id == id);
         /// <summary>
         /// Добавляет поезд в репозиторий
         /// </summary>
